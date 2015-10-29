@@ -16,7 +16,7 @@ TOTAL_APPS = 535
 # Let's build a browser to log in to Appshopper with our credentials.
 br = mechanize.Browser()
 br.open("http://appshopper.com/login?url=/")
-br.select_form(nr=0)
+br.select_form(nr=1)
 br.form['username'] = APPSHOPPER_USER
 br.form['password'] = APPSHOPPER_PASS
 br.submit()
@@ -31,8 +31,8 @@ app name and the type of app (iOS Universal, Mac, etc.)'''
     br.open(wishpage)
     response1 = br.response()
     soup = BeautifulSoup(response1.read())
-    applist = soup.find_all('ul', 'appdetails')
-    appnames = applist[0].find_all('h3')
+    applist = soup.find_all('div', 'main-content')
+    appnames = applist[0].find_all('h2')
     apptype = applist[0].find_all('nobr')
     for f, b in zip(appnames, apptype):
         print "<li>"
